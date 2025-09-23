@@ -6,7 +6,7 @@ from coach import Act
 
 
 import numpy as np
-
+#yo im daisy
 
 # Main Program Loop
 def main():
