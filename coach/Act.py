@@ -5,6 +5,8 @@ import cv2
 import numpy as np
 import random
 import pyttsx3
+import pygame
+
 
 
 # Act Component: Visualization to motivate user, visualization such as the skeleton and debugging information.
@@ -18,9 +20,27 @@ class Act:
         self.max_transitions = 10  # Explodes after 10 transitions
 
         self.engine = pyttsx3.init()
+        file_path = r"C:\Users\daisy\Documents\GitHub\Foundations-of-I-Tech---Week-2\audio\1 Introduction Part 1.wav"
 
-        self.motivating_utterances = ['keep on going', 'you are doing great. I see it', 'only a few left', 'that is awesome', 'you have almost finished the exercise']
+        pygame.mixer.init(frequency=44100, size=-16, channels=2, buffer=512)
+        pygame.mixer.music.load(file_path)
+        pygame.mixer.music.play()
+
+        # Preload feedback M4A files
+        self.feedback_files = {
+            'flexion': 'audio/1 Introduction Part 1.wav',
+            'extension': 'audio/1 Introduction Part 1.wav',
+            'motivating': [
+                'audio/1 Introduction Part 1.wav',
+                'audio/1 Introduction Part 1.wav',
+                'audio/1 Introduction Part 1.wav'
+            ]}
+
         # Handles balloon inflation and reset after explosion
+
+    def play_audio(self, file_path):
+        pygame.mixer.music.load(file_path)
+        pygame.mixer.music.play()
 
     def handle_balloon_inflation(self):
         """
@@ -28,9 +48,8 @@ class Act:
         """
         self.transition_count += 1
 
-        text = random.choice(self.motivating_utterances)
-        self.engine.say("%s %s" % (self.transition_count, text))
-        self.engine.runAndWait() # This is a blocking call. You need to run it in a thread.
+        clip = random.choice(self.feedback_files['motivating'])
+        self.play_audio(clip)
 
 
 
@@ -108,12 +127,11 @@ class Act:
 
         # Define the number and text to display
         number = elbow_angle_mvg
-        text = " "
-        if decision == 'flexion':
-            text = "You are flexing your elbow! %s" % number
-        elif decision == 'extension':
-            text = "You are extending your elbow! %s" % number
 
+        if decision == 'flexion':
+            self.play_audio(self.feedback_files['flexion'])
+        elif decision == 'extension':
+            self.play_audio(self.feedback_files['extension'])
 
         # Set the position, font, size, color, and thickness for the text
         font = cv2.FONT_HERSHEY_SIMPLEX
@@ -123,9 +141,9 @@ class Act:
 
         # Define the position for the number and text
         text_position = (50, 50)
-
+        text = "hi"
         # Draw the text on the image
-        cv2.putText(frame, text, text_position, font, font_scale, font_color, thickness)
+        cv2.putText(frame,text, text_position, font, font_scale, font_color, thickness)
 
         # Display the frame (for debugging purposes)
         cv2.imshow('Sport Coaching Program', frame)
