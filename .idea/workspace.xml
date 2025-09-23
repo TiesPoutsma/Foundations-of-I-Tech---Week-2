@@ -1,0 +1,83 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<project version="4">
+  <component name="ChangeListManager">
+    <list default="true" id="d801c5d7-39c5-46f2-a304-e03a22f35137" name="Changes" comment="">
+      <change afterPath="$PROJECT_DIR$/audio/1 Introduction Part 1.m4a" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/audio/10 Good job 1.m4a" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/audio/11 Transition - Vegetables.m4a" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/audio/12 Give water 1.m4a" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/audio/13 Almost there 1.m4a" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/audio/14 Almost there 2.m4a" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/audio/15 Almost there 3.m4a" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/audio/16 Fully grown 1.m4a" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/audio/17 Fully grown 2.m4a" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/audio/18 Ending Congratulations.m4a" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/audio/2 Introduction Part 2.m4a" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/audio/3 Introduction Part 3.m4a" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/audio/4 Introduction Part 4.m4a" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/audio/5 Plant Thirsty 2.m4a" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/audio/6 Plant Thirsty 1.m4a" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/audio/7 Helping Nudge.m4a" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/audio/8 Good job 2.m4a" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/audio/9 Good job 3.m4a" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/images/can.png" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/images/carrot.png" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/images/leave.png" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/coach/Act.py" beforeDir="false" afterPath="$PROJECT_DIR$/coach/Act.py" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/main.py" beforeDir="false" afterPath="$PROJECT_DIR$/main.py" afterDir="false" />
+    </list>
+    <option name="SHOW_DIALOG" value="false" />
+    <option name="HIGHLIGHT_CONFLICTS" value="true" />
+    <option name="HIGHLIGHT_NON_ACTIVE_CHANGELIST" value="false" />
+    <option name="LAST_RESOLUTION" value="IGNORE" />
+  </component>
+  <component name="Git.Settings">
+    <option name="RECENT_GIT_ROOT_PATH" value="$PROJECT_DIR$" />
+  </component>
+  <component name="MarkdownSettingsMigration">
+    <option name="stateVersion" value="1" />
+  </component>
+  <component name="ProjectId" id="335yYnTyK9W2F6f5TkRovwImrkb" />
+  <component name="ProjectViewState">
+    <option name="hideEmptyMiddlePackages" value="true" />
+    <option name="showLibraryContents" value="true" />
+  </component>
+  <component name="PropertiesComponent"><![CDATA[{
+  "keyToString": {
+    "RunOnceActivity.OpenProjectViewOnStart": "true",
+    "RunOnceActivity.ShowReadmeOnStart": "true",
+    "last_opened_file_path": "C:/Users/daisy/Documents/GitHub/Foundations-of-I-Tech---Week-2/images",
+    "settings.editor.selected.configurable": "com.jetbrains.python.configuration.PyActiveSdkModuleConfigurable"
+  }
+}]]></component>
+  <component name="RecentsManager">
+    <key name="CopyFile.RECENT_KEYS">
+      <recent name="C:\Users\daisy\Documents\GitHub\Foundations-of-I-Tech---Week-2\images" />
+    </key>
+    <key name="MoveFile.RECENT_KEYS">
+      <recent name="C:\Users\daisy\Documents\GitHub\Foundations-of-I-Tech---Week-2\audio" />
+    </key>
+  </component>
+  <component name="SpellCheckerSettings" RuntimeDictionaries="0" Folders="0" CustomDictionaries="0" DefaultDictionary="application-level" UseSingleDictionary="true" transferred="true" />
+  <component name="TaskManager">
+    <task active="true" id="Default" summary="Default task">
+      <changelist id="d801c5d7-39c5-46f2-a304-e03a22f35137" name="Changes" comment="" />
+      <created>1758621277947</created>
+      <option name="number" value="Default" />
+      <option name="presentableId" value="Default" />
+      <updated>1758621277947</updated>
+    </task>
+    <servers />
+  </component>
+  <component name="Vcs.Log.Tabs.Properties">
+    <option name="TAB_STATES">
+      <map>
+        <entry key="MAIN">
+          <value>
+            <State />
+          </value>
+        </entry>
+      </map>
+    </option>
+  </component>
+</project>
