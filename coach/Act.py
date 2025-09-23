@@ -13,13 +13,10 @@ class Act:
 
     def __init__(self):
         # Balloon size and transition tracking for visualization
-        self.balloon_size = 50
+        self.image = cv2.imread("images/leave.png", cv2.IMREAD_UNCHANGED)
         self.transition_count = 0
         self.max_transitions = 10  # Explodes after 10 transitions
-        self.exploded = False  # Track whether the balloon exploded
-        self.explosion_fragments = []  # Store explosion fragments
-        self.explosion_frame_count = 0  # Frame counter for explosion duration
-        self.explosion_duration = 30  # Number of frames to show explosion effect
+
         self.engine = pyttsx3.init()
 
         self.motivating_utterances = ['keep on going', 'you are doing great. I see it', 'only a few left', 'that is awesome', 'you have almost finished the exercise']
@@ -29,29 +26,14 @@ class Act:
         """
         Increases the size of the balloon with each successful repetition.
         """
-        if not self.exploded:  # Only inflate if balloon hasn't exploded
+        self.transition_count += 1
 
-            self.transition_count += 1
-            self.balloon_size += 10  # Inflate balloon by 10 units per transition
+        text = random.choice(self.motivating_utterances)
+        self.engine.say("%s %s" % (self.transition_count, text))
+        self.engine.runAndWait() # This is a blocking call. You need to run it in a thread.
 
-            text = random.choice(self.motivating_utterances)
-            self.engine.say("%s %s" % (self.transition_count, text))
-            self.engine.runAndWait() # This is a blocking call. You need to run it in a thread.
 
-            # Check if balloon should explode
 
-            if self.transition_count >= self.max_transitions:
-                self.explode_balloon()
-
-    def explode_balloon(self):
-        """
-        Handles the visual effect of the balloon exploding.
-        """
-
-        self.exploded = True  # Mark the balloon as exploded
-        self.create_explosion_fragments()  # Generate the explosion fragments
-        self.engine.say("boooom booooom booom")
-        self.engine.runAndWait()
 
     def reset_balloon(self):
         """
@@ -59,75 +41,57 @@ class Act:
         """
 
         self.transition_count = 0
-        self.balloon_size = 50  # Reset balloon size
-        self.exploded = False  # Reset explosion state
-        self.explosion_frame_count = 0  # Reset the explosion frame counter
-        self.explosion_fragments.clear()  # Clear the fragments after explosion
 
         self.engine.say("You did great! Let's reset the balloon.")
         self.engine.runAndWait()
         # Create explosion fragments with random sizes and positions
 
-    def create_explosion_fragments(self):
-        # Generate random "fragments" for explosion effect
-        for _ in range(20):
-            fragment = {
-                'position': (random.randint(200, 300), random.randint(200, 400)),
-                'size': random.randint(5, 15),
-                'color': (0, 0, 255),  # Red fragments
-                'dx': random.randint(-10, 10),  # X-direction movement
-                'dy': random.randint(-10, 10)  # Y-direction movement
-            }
-            self.explosion_fragments.append(fragment)
-
-        # Visualization of the balloon and explosion in OpenCV
 
     def visualize_balloon(self):
-        """
-        Renders the balloon .
-        """
-
-        # Create a black background
+        if self.transition_count >= 6:
+            self.reset_balloon()
         img = np.zeros((500, 500, 3), dtype=np.uint8)
+        # Choose which image to display
+        if self.transition_count < 4:
+            display_image = self.image  # first image
+        elif self.transition_count < 6:
+            if not hasattr(self, 'second_image'):
+                self.second_image = cv2.imread("images/carrot.png", cv2.IMREAD_UNCHANGED)
+            display_image = self.second_image
 
-        if not self.exploded:
-            # Draw the balloon (a circle) with dynamic size if it hasn't exploded
-            cv2.circle(img, (250, 300), self.balloon_size, (0, 0, 255), -1)  # Red balloon
-        else:
-            # Draw explosion fragments if balloon has exploded
-            for fragment in self.explosion_fragments:
-                x, y = fragment['position']
-                size = fragment['size']
-                color = fragment['color']
 
-                # Move fragments in random directions
-                x += fragment['dx']
-                y += fragment['dy']
-                fragment['position'] = (x, y)
+        # Resize the image based on transition_count (like balloon size)
+        scale = 0.03 + (self.transition_count * 0.05)
+        new_w = int(display_image.shape[1] * scale)
+        new_h = int(display_image.shape[0] * scale)
 
-                # Draw each fragment as a small circle
-                cv2.circle(img, (x, y), size, color, -1)
+        # Clamp size so it never exceeds canvas
+        new_w = min(new_w, img.shape[1])
+        new_h = min(new_h, img.shape[0])
 
-            self.explosion_frame_count += 1
+        # Resize properly after clamping
+        resized_img = cv2.resize(display_image, (new_w, new_h))
 
-            # Reset the balloon after the explosion effect finishes
-            if self.explosion_frame_count >= self.explosion_duration:
-                self.reset_balloon()
+        # Center placement
+        x_offset = (img.shape[1] - new_w) // 2
+        y_offset = (img.shape[0] - new_h) // 2
+        # Split alpha and color channels
+        alpha = resized_img[:, :, 3] / 255.0  # alpha channel
+        rgb_carrot = resized_img[:, :, :3]  # RGB channels
 
-        cv2.putText(img, f'Repeat flexing/bending your left arm to pop the balloon!', (0, 50),
-                    cv2.FONT_HERSHEY_SIMPLEX, .55, (255, 255, 255), 2, cv2.LINE_AA)
+        # Alpha blending into 3-channel canvas
+        for c in range(3):
+            img[y_offset:y_offset + resized_img.shape[0], x_offset:x_offset + resized_img.shape[1], c] = (
+                    alpha * rgb_carrot[:, :, c] + (1 - alpha) * img[y_offset:y_offset + resized_img.shape[0],
+                                                                x_offset:x_offset + resized_img.shape[1], c]
+            )
+        # Overlay text
+        cv2.putText(img, f'Repetitions: {self.transition_count}', (20, 40),
+                    cv2.FONT_HERSHEY_SIMPLEX, 1, (0, 255, 255), 2, cv2.LINE_AA)
 
-        # Add transition count and text
-        cv2.putText(img, f'Repetitions: {self.transition_count}', (150, 100),
-                    cv2.FONT_HERSHEY_SIMPLEX, 1, (255, 255, 255), 2, cv2.LINE_AA)
-        cv2.putText(img, f'Balloon Size: {self.balloon_size}', (150, 150),
-                    cv2.FONT_HERSHEY_SIMPLEX, 1, (255, 255, 255), 2, cv2.LINE_AA)
-
-        # Show the image in the window
         cv2.imshow('Flex and bend your left elbow!', img)
-
-        # Wait for 1 ms and check if the window should be closed
         cv2.waitKey(1)
+
 
     def provide_feedback(self, decision, frame, joints, elbow_angle_mvg):
         """
@@ -154,7 +118,7 @@ class Act:
         # Set the position, font, size, color, and thickness for the text
         font = cv2.FONT_HERSHEY_SIMPLEX
         font_scale = .9
-        font_color = (0, 0, 0)  # White color in BGR
+        font_color = (300, 0, 0)  # White color in BGR
         thickness = 2
 
         # Define the position for the number and text
