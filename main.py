@@ -43,6 +43,10 @@ def main():
         joints = sense.detect_joints(frame)
         landmarks = joints.pose_landmarks
 
+        # Sense: Detect left hand
+       # hand_results = sense.detect_hands(frame)
+       # left_hand_gesture = sense.detect_left_hand_gesture(hand_results) if hand_results else None
+
         # If landmarks are detected, calculate the elbow angle
         if landmarks:
             # Extract joint coordinates for the left arm
@@ -50,12 +54,15 @@ def main():
             shoulder = sense.extract_joint_coordinates(landmarks, 'left_shoulder')
             elbow = sense.extract_joint_coordinates(landmarks, 'left_elbow')
             wrist = sense.extract_joint_coordinates(landmarks, 'left_wrist')
+            hip = sense.extract_joint_coordinates(landmarks, 'left_hip')
+            knee = sense.extract_joint_coordinates(landmarks, 'left_knee')
 
             # Calculate the elbow angle
             elbow_angle_mvg = sense.calculate_angle(shoulder, elbow, wrist)
 
+
             # Think: Next, give the angles to the decision-making component and make decisions based on joint data
-            think.update_state(elbow_angle_mvg, sense.previous_angle)
+            think.update_state(elbow_angle_mvg, sense.previous_angle, hip_xy=hip, wrist_xy=wrist, knee_xy=knee)
 
             # We'll save the previous angle for later comparison
             sense.previous_angle = elbow_angle_mvg

@@ -5,7 +5,7 @@ import cv2
 import numpy as np
 import random
 import pyttsx3
-import pygame
+#import pygame
 
 
 
@@ -20,37 +20,39 @@ class Act:
         self.max_transitions = 10  # Explodes after 10 transitions
 
         self.engine = pyttsx3.init()
-        file_path = r"C:\Users\daisy\Documents\GitHub\Foundations-of-I-Tech---Week-2\audio\1 Introduction Part 1.wav"
+        
+        #file_path = r"C:\Users\daisy\Documents\GitHub\Foundations-of-I-Tech---Week-2\audio\1 Introduction Part 1.wav"
 
-        pygame.mixer.init(frequency=44100, size=-16, channels=2, buffer=512)
-        pygame.mixer.music.load(file_path)
-        pygame.mixer.music.play()
-
+        #pygame.mixer.init(frequency=44100, size=-16, channels=2, buffer=512)
+        #pygame.mixer.music.load(file_path)
+        #pygame.mixer.music.play()
+        
         # Preload feedback M4A files
-        self.feedback_files = {
-            'flexion': 'audio/1 Introduction Part 1.wav',
-            'extension': 'audio/1 Introduction Part 1.wav',
-            'motivating': [
-                'audio/1 Introduction Part 1.wav',
-                'audio/1 Introduction Part 1.wav',
-                'audio/1 Introduction Part 1.wav'
-            ]}
+        self.feedback_files = {}
 
+#            'flexion': 'audio/1 Introduction Part 1.wav',
+#            'extension': 'audio/1 Introduction Part 1.wav',
+#            'motivating': [
+#                'audio/1 Introduction Part 1.wav',
+#                'audio/1 Introduction Part 1.wav',
+#                'audio/1 Introduction Part 1.wav'
+#            ]}
+        
         # Handles balloon inflation and reset after explosion
-
-    def play_audio(self, file_path):
-        pygame.mixer.music.load(file_path)
-        pygame.mixer.music.play()
-
+    
+#    def play_audio(self, file_path):
+#        pygame.mixer.music.load(file_path)
+#        pygame.mixer.music.play()
+    
     def handle_balloon_inflation(self):
         """
         Increases the size of the balloon with each successful repetition.
         """
         self.transition_count += 1
-
-        clip = random.choice(self.feedback_files['motivating'])
-        self.play_audio(clip)
-
+        
+#        clip = random.choice(self.feedback_files['motivating'])
+#        self.play_audio(clip)
+        
 
 
 
@@ -126,13 +128,13 @@ class Act:
         mp.solutions.drawing_utils.draw_landmarks(frame, joints.pose_landmarks, mp.solutions.pose.POSE_CONNECTIONS)
 
         # Define the number and text to display
-        number = elbow_angle_mvg
-
-        if decision == 'flexion':
-            self.play_audio(self.feedback_files['flexion'])
-        elif decision == 'extension':
-            self.play_audio(self.feedback_files['extension'])
-
+        #number = elbow_angle_mvg
+        
+#        if decision == 'flexion':
+#            self.play_audio(self.feedback_files['flexion'])
+#        elif decision == 'extension':
+#            self.play_audio(self.feedback_files['extension'])
+        
         # Set the position, font, size, color, and thickness for the text
         font = cv2.FONT_HERSHEY_SIMPLEX
         font_scale = .9
@@ -141,9 +143,9 @@ class Act:
 
         # Define the position for the number and text
         text_position = (50, 50)
-        text = "hi"
+        #text = "hi"
         # Draw the text on the image
-        cv2.putText(frame,text, text_position, font, font_scale, font_color, thickness)
+        #cv2.putText(frame, text, text_position, font, font_scale, font_color, thickness)
 
         # Display the frame (for debugging purposes)
         cv2.imshow('Sport Coaching Program', frame)

@@ -13,6 +13,17 @@ class Sense:
 
         self.mp_drawing = mp.solutions.drawing_utils
         self.mp_pose = mp.solutions.pose.Pose()
+        
+#        self.prev_wrist_y = None
+
+ #       # hands for gestures (left hand)
+ #       self.mp_hands = mp.solutions.hands.Hands(
+ #           static_image_mode=False,
+ #           max_num_hands=2,
+ #           min_detection_confidence=0.5, 
+ #           min_tracking_confidence=0.5
+ #           #min_tracking_confidence : we can put 0.7 since she's old
+ #       )
 
         # used later for having a moving avergage
         self.angle_window = [-1, -1, -1, -1, -1, -1, -1, -1, -1, -1]
@@ -116,3 +127,17 @@ class Sense:
         left_ankle = [landmarks.landmark[mp.solutions.pose.PoseLandmark.LEFT_ANKLE.value].x,
                       landmarks.landmark[mp.solutions.pose.PoseLandmark.LEFT_ANKLE.value].y]
         return self.calculate_angle(left_hip, left_knee, left_ankle)
+
+
+    # Extracts the angle of the elbow by measuring the angle between the left shoulder, left elbow, and left wrist
+    def extract_elbow_angle(self, landmarks):
+        left_shoulder = [landmarks.landmark[mp.solutions.pose.PoseLandmark.LEFT_SHOULDER.value].x,
+                         landmarks.landmark[mp.solutions.pose.PoseLandmark.LEFT_SHOULDER.value].y]
+        left_elbow = [landmarks.landmark[mp.solutions.pose.PoseLandmark.LEFT_ELBOW.value].x,
+                      landmarks.landmark[mp.solutions.pose.PoseLandmark.LEFT_ELBOW.value].y]
+        left_wrist = [landmarks.landmark[mp.solutions.pose.PoseLandmark.LEFT_WRIST.value].x,
+                      landmarks.landmark[mp.solutions.pose.PoseLandmark.LEFT_WRIST.value].y]
+        return self.calculate_angle(left_shoulder, left_elbow, left_wrist)
+    
+
+    

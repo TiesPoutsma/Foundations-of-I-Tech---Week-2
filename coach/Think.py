@@ -7,7 +7,11 @@ import collections
 
 class Think(object):
 
-    def __init__(self, act_component, flexion_threshold=90, extension_threshold=120):
+    watering = False
+
+    bend = False
+
+    def __init__(self, act_component, flexion_threshold=90, extension_threshold=180):
         """
         Initializes the state machine and sets up the transition logic.
         :param act_component: Reference to the Act component to trigger visual feedback
@@ -45,7 +49,8 @@ class Think(object):
         # conditions='is_extension_threshold_reached',
 
     # Condition for transition to 'flexion' state
-    def is_flexion_threshold_reached(self, angle):
+    def is_flexion_threshold_reached(self, angle, bend):
+
         """
         Checks if the flexion threshold has been reached to trigger a state change.
 
@@ -55,23 +60,33 @@ class Think(object):
         return angle < self.flexion_threshold # Flexion is detected when the elbow is bent
 
     # Condition for transition to 'extension' state
-    def is_extension_threshold_reached(self, angle):
+    def is_extension_threshold_reached(self, angle, bend):
         """
                  Checks if the extension threshold has been reached to trigger a state change.
 
                  :param angle: The current elbow angle
                  :return: True if extension threshold is reached, False otherwise
                  """
-        return angle > self.extension_threshold # Extension is detected when the elbow is almost straight
+        return angle > self.extension_threshold and bend # Extension is detected when the elbow is almost straight
 
     # Method to update the FSM state based on the current elbow angle
-    def update_state(self, current_angle, previous_angle):
+    def update_state(self, current_angle, previous_angle, hip_xy=None, wrist_xy=None, knee_xy=None):
         """
         Updates the state machine based on the current angle (flexion or extension).
 
         :param current_angle: The current elbow joint angle (in degrees)
         :param previous_angle: The previous elbow joint angle (in degrees)
         """
+
+        if wrist_xy is not None and hip_xy is not None and knee_xy is not None:
+            wrist_y = wrist_xy[1]
+            hip_y = hip_xy[1]
+            knee_y = knee_xy[1]
+            bend = wrist_y > (hip_y+knee_y)/2
+        else:
+            bend = False
+                        
+            
 
         # Check if the angle is decreasing and we're in the extension state
         if current_angle < previous_angle and self.state == 'extension':
