@@ -129,6 +129,8 @@ class Act:
         """
         overlay_img = cv2.resize(overlay_img, (0, 0), fx=scale, fy=scale)
         h, w, _ = overlay_img.shape
+        if h <= 0 or w <= 0:
+            return background
 
         # Crop if overlay goes outside background
         if y + h > background.shape[0]: h = background.shape[0] - y

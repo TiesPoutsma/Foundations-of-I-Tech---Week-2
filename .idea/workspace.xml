@@ -4,6 +4,8 @@
     <list default="true" id="d801c5d7-39c5-46f2-a304-e03a22f35137" name="Changes" comment="">
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/coach/Act.py" beforeDir="false" afterPath="$PROJECT_DIR$/coach/Act.py" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/coach/Think.py" beforeDir="false" afterPath="$PROJECT_DIR$/coach/Think.py" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/main.py" beforeDir="false" afterPath="$PROJECT_DIR$/main.py" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />

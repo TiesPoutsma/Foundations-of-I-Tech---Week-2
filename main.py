@@ -24,6 +24,7 @@ def main():
     think = Think.Think(act)
 
 
+
     # Search and print available camera devices (may take a while to complete)
     #searchValidCameraIndexes()
     
@@ -55,7 +56,13 @@ def main():
             elbow_angle_mvg = sense.calculate_angle(shoulder, elbow, wrist)
 
             # Think: Next, give the angles to the decision-making component and make decisions based on joint data
-            think.update_state(elbow_angle_mvg, sense.previous_angle)
+            think.update_state(elbow_angle_mvg, sense.previous_angle,
+                   wrist_xy=wrist, hip_xy=shoulder, knee_xy=elbow)
+            print(think.bend)
+            print("hip=", sense.extract_joint_coordinates(landmarks, 'left_hip'))
+            print("wrist=", sense.extract_joint_coordinates(landmarks, 'left_wrist'))
+            print("shoulder=", sense.extract_joint_coordinates(landmarks, 'left_shoulder'))
+
 
             # We'll save the previous angle for later comparison
             sense.previous_angle = elbow_angle_mvg
@@ -76,6 +83,8 @@ def main():
     # Release the webcam and close all OpenCV windows
     cap.release()
     cv2.destroyAllWindows()
+
+
 
 
 def searchValidCameraIndexes():
