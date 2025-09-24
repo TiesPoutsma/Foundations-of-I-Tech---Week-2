@@ -17,7 +17,11 @@ class Act:
         # Balloon size and transition tracking for visualization
         self.image = cv2.imread("images/leave.png", cv2.IMREAD_UNCHANGED)
         self.transition_count = 0
-        self.max_transitions = 10  # Explodes after 10 transitions
+        self.round_count = 0
+        self.max_transitions = 6
+        self.total_transitions = 0
+
+
 
         self.engine = pyttsx3.init()
         file_path = r"C:\Users\daisy\Documents\GitHub\Foundations-of-I-Tech---Week-2\audio\1 Introduction Part 1.wav"
@@ -25,30 +29,35 @@ class Act:
         pygame.mixer.init(frequency=44100, size=-16, channels=2, buffer=512)
         pygame.mixer.music.load(file_path)
         pygame.mixer.music.play()
-
+        self.motivating_index = 0
         # Preload feedback M4A files
         self.feedback_files = {
-            'flexion': 'audio/1 Introduction Part 1.wav',
-            'extension': 'audio/1 Introduction Part 1.wav',
             'motivating': [
-                'audio/1 Introduction Part 1.wav',
-                'audio/1 Introduction Part 1.wav',
-                'audio/1 Introduction Part 1.wav'
+                'audio/goodjob1.wav', #1
+                'audio/goodjob2.wav', #2
+                'audio/goodjob3.wav',
+                'audio/transition.wav',
+                'audio/almost2.wav', #4
+                'audio/almost3.wav', #5
             ]}
 
         # Handles balloon inflation and reset after explosion
 
     def play_audio(self, file_path):
-        pygame.mixer.music.load(file_path)
-        pygame.mixer.music.play()
+        if not pygame.mixer.music.get_busy():  # only play if no audio is already playing
+            pygame.mixer.music.load(file_path)
+            pygame.mixer.music.play()
 
     def handle_balloon_inflation(self):
         """
         Increases the size of the balloon with each successful repetition.
         """
         self.transition_count += 1
-
-        clip = random.choice(self.feedback_files['motivating'])
+        self.total_transitions += 1
+        # Calculate the current round
+        self.round_count = self.total_transitions // self.max_transitions
+        clip = self.feedback_files['motivating'][self.motivating_index]
+        self.motivating_index = (self.motivating_index + 1) % len(self.feedback_files['motivating'])
         self.play_audio(clip)
 
 
@@ -60,16 +69,17 @@ class Act:
         """
 
         self.transition_count = 0
+        # Play "end" audio before restarting
+        end_audio = r"audio/end.wav"  # <- place your file here
+        self.play_audio(end_audio)
 
-        self.engine.say("You did great! Let's reset the balloon.")
-        self.engine.runAndWait()
         # Create explosion fragments with random sizes and positions
 
 
     def visualize_balloon(self):
         if self.transition_count >= 6:
             self.reset_balloon()
-        img = np.zeros((500, 500, 3), dtype=np.uint8)
+        img = np.full((500, 500, 3), (220, 245, 245), dtype=np.uint8)
         # Choose which image to display
         if self.transition_count < 4:
             display_image = self.image  # first image
@@ -80,7 +90,7 @@ class Act:
 
 
         # Resize the image based on transition_count (like balloon size)
-        scale = 0.03 + (self.transition_count * 0.05)
+        scale = 0.15 + (self.transition_count * 0.08)
         new_w = int(display_image.shape[1] * scale)
         new_h = int(display_image.shape[0] * scale)
 
@@ -105,10 +115,11 @@ class Act:
                                                                 x_offset:x_offset + resized_img.shape[1], c]
             )
         # Overlay text
-        cv2.putText(img, f'Repetitions: {self.transition_count}', (20, 40),
-                    cv2.FONT_HERSHEY_SIMPLEX, 1, (0, 255, 255), 2, cv2.LINE_AA)
-
-        cv2.imshow('Flex and bend your left elbow!', img)
+        cv2.putText(img, f'Repetitions: {self.transition_count}', (50, 450),
+                    cv2.FONT_HERSHEY_SIMPLEX, 1, (0, 0, 0), 2, cv2.LINE_AA)
+        cv2.putText(img, f"Carrots grown: {self.round_count}", (20, 40),
+                    cv2.FONT_HERSHEY_SIMPLEX, 1.5, (0, 0, 0), 3)
+        cv2.imshow('Grow a carrot!', img)
         cv2.waitKey(1)
 
 
@@ -128,20 +139,18 @@ class Act:
         # Define the number and text to display
         number = elbow_angle_mvg
 
-        if decision == 'flexion':
-            self.play_audio(self.feedback_files['flexion'])
-        elif decision == 'extension':
-            self.play_audio(self.feedback_files['extension'])
-
+        
         # Set the position, font, size, color, and thickness for the text
         font = cv2.FONT_HERSHEY_SIMPLEX
         font_scale = .9
-        font_color = (300, 0, 0)  # White color in BGR
+        font_color = (0, 0, 0)  # White color in BGR
         thickness = 2
+
+
 
         # Define the position for the number and text
         text_position = (50, 50)
-        text = "hi"
+        text = "Water the plant!"
         # Draw the text on the image
         cv2.putText(frame,text, text_position, font, font_scale, font_color, thickness)
 
