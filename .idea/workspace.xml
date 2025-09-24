@@ -2,45 +2,8 @@
 <project version="4">
   <component name="ChangeListManager">
     <list default="true" id="d801c5d7-39c5-46f2-a304-e03a22f35137" name="Changes" comment="">
-      <change afterPath="$PROJECT_DIR$/audio/almost1.wav" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/audio/almost2.wav" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/audio/almost3.wav" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/audio/complete1.wav" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/audio/complete2.wav" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/audio/ending.wav" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/audio/givewater.wav" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/audio/goodjob1.wav" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/audio/goodjob2.wav" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/audio/goodjob3.wav" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/audio/intro1.wav" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/audio/intro2.wav" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/audio/intro3.wav" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/audio/intro4.wav" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/audio/nudge.wav" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/audio/thirsty1.wav" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/audio/thirsty2.wav" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/audio/transition.wav" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/audio/1 Introduction Part 1.m4a" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/audio/10 Good job 1.m4a" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/audio/11 Transition - Vegetables.m4a" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/audio/12 Give water 1.m4a" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/audio/13 Almost there 1.m4a" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/audio/14 Almost there 2.m4a" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/audio/15 Almost there 3.m4a" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/audio/16 Fully grown 1.m4a" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/audio/17 Fully grown 2.m4a" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/audio/18 Ending Congratulations.m4a" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/audio/2 Introduction Part 2.m4a" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/audio/3 Introduction Part 3.m4a" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/audio/4 Introduction Part 4.m4a" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/audio/5 Plant Thirsty 2.m4a" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/audio/6 Plant Thirsty 1.m4a" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/audio/7 Helping Nudge.m4a" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/audio/8 Good job 2.m4a" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/audio/9 Good job 3.m4a" beforeDir="false" />
       <change beforePath="$PROJECT_DIR$/coach/Act.py" beforeDir="false" afterPath="$PROJECT_DIR$/coach/Act.py" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/images/carrot.png" beforeDir="false" afterPath="$PROJECT_DIR$/images/carrot.png" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -58,14 +21,14 @@
     <option name="hideEmptyMiddlePackages" value="true" />
     <option name="showLibraryContents" value="true" />
   </component>
-  <component name="PropertiesComponent"><![CDATA[{
-  "keyToString": {
-    "RunOnceActivity.OpenProjectViewOnStart": "true",
-    "RunOnceActivity.ShowReadmeOnStart": "true",
-    "last_opened_file_path": "C:/Users/daisy/Documents/GitHub/Foundations-of-I-Tech---Week-2/audio",
-    "settings.editor.selected.configurable": "preferences.pluginManager"
+  <component name="PropertiesComponent">{
+  &quot;keyToString&quot;: {
+    &quot;RunOnceActivity.OpenProjectViewOnStart&quot;: &quot;true&quot;,
+    &quot;RunOnceActivity.ShowReadmeOnStart&quot;: &quot;true&quot;,
+    &quot;last_opened_file_path&quot;: &quot;C:/Users/daisy/Documents/GitHub/Foundations-of-I-Tech---Week-2/audio&quot;,
+    &quot;settings.editor.selected.configurable&quot;: &quot;preferences.pluginManager&quot;
   }
-}]]></component>
+}</component>
   <component name="RecentsManager">
     <key name="CopyFile.RECENT_KEYS">
       <recent name="C:\Users\daisy\Documents\GitHub\Foundations-of-I-Tech---Week-2\audio" />

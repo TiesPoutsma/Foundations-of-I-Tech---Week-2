@@ -16,6 +16,7 @@ class Act:
     def __init__(self):
         # Balloon size and transition tracking for visualization
         self.image = cv2.imread("images/leave.png", cv2.IMREAD_UNCHANGED)
+        self.can_img = cv2.imread("images/can.png", cv2.IMREAD_UNCHANGED)
         self.transition_count = 0
         self.round_count = 0
         self.max_transitions = 6
@@ -115,13 +116,28 @@ class Act:
                                                                 x_offset:x_offset + resized_img.shape[1], c]
             )
         # Overlay text
-        cv2.putText(img, f'Repetitions: {self.transition_count}', (50, 450),
+        cv2.putText(img, f'Times watered: {self.transition_count}', (50, 450),
                     cv2.FONT_HERSHEY_SIMPLEX, 1, (0, 0, 0), 2, cv2.LINE_AA)
         cv2.putText(img, f"Carrots grown: {self.round_count}", (20, 40),
                     cv2.FONT_HERSHEY_SIMPLEX, 1.5, (0, 0, 0), 3)
         cv2.imshow('Grow a carrot!', img)
         cv2.waitKey(1)
 
+    def overlay(self, background, overlay_img, x, y, scale=1.0):
+        """
+        Simple helper to overlay a transparent RGBA image on a BGR background.
+        """
+        overlay_img = cv2.resize(overlay_img, (0, 0), fx=scale, fy=scale)
+        h, w, _ = overlay_img.shape
+
+        # Crop if overlay goes outside background
+        if y + h > background.shape[0]: h = background.shape[0] - y
+        if x + w > background.shape[1]: w = background.shape[1] - x
+        if h <= 0 or w <= 0: return background
+
+        alpha = overlay_img[:h, :w, 3:] / 255.0
+        background[y:y + h, x:x + w] = alpha * overlay_img[:h, :w, :3] + (1 - alpha) * background[y:y + h, x:x + w]
+        return background
 
     def provide_feedback(self, decision, frame, joints, elbow_angle_mvg):
         """
@@ -135,7 +151,13 @@ class Act:
         """
 
         mp.solutions.drawing_utils.draw_landmarks(frame, joints.pose_landmarks, mp.solutions.pose.POSE_CONNECTIONS)
+        if joints.pose_landmarks:
+            h, w, _ = frame.shape
+            wrist = joints.pose_landmarks.landmark[mp.solutions.pose.PoseLandmark.LEFT_WRIST]
+            wrist_x = int(wrist.x * w)
+            wrist_y = int(wrist.y * h)
 
+            frame = self.overlay(frame, self.can_img, wrist_x - 20, wrist_y - 40, scale=0.2)
         # Define the number and text to display
         number = elbow_angle_mvg
 
